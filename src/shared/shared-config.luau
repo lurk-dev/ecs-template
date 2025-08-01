@@ -26,6 +26,15 @@ local SharedConfig = {
             "stateChange",
         },
         
+        -- Action validation set
+        validActions = {
+            ping = true,
+            getData = true,
+            playerAction = true,
+            updateData = true,
+            stateChange = true,
+        },
+        
         -- Network timing constraints
         maxRequestRate = 30,        -- Requests per second (rate limiting)
         requestTimeout = 30,        -- Seconds before request times out
@@ -116,12 +125,7 @@ local SharedConfigHelpers = {
     end,
     
     isValidAction = function(action: string): boolean
-        for _, validAction in SharedConfig.Network.actions do
-            if validAction == action then
-                return true
-            end
-        end
-        return false
+        return SharedConfig.Network.validActions[action] == true
     end,
     
     getRemoteEventName = function(eventType: string): string
