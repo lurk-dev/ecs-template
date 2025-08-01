@@ -121,7 +121,7 @@ local function networkHandlerSystem()
     if systemInitialized then return end
     systemInitialized = true
     
-    Debug.system("Initializing network handler system...")
+    -- Removed verbose network handler initialization message
     
     -- Initialize server network
     ServerNetwork.init()
@@ -157,7 +157,7 @@ local function networkHandlerSystem()
         end
     end)
     
-    Debug.config("Network handler system initialized")
+    -- Removed verbose network handler completion message
 end
 
 return {

@@ -72,13 +72,13 @@ local SharedConfig = {
     Debug = {
         enableDebugPrints = true,      -- Master toggle for debug output
         categories = {
-            -- Core Categories (keep enabled)
-            system = true,             -- System messages
-            config = true,             -- Configuration messages
-            error = true,              -- Error messages
+            -- Core Categories (minimized for production)
+            system = false,            -- System messages (disabled to reduce noise)
+            config = false,            -- Configuration messages (disabled to reduce noise)
+            error = true,              -- Error messages (keep enabled)
             
             -- Gameplay Categories (toggle as needed)
-            gameplay = true,           -- Core game mechanics
+            gameplay = false,          -- Core game mechanics (disabled by default)
             movement = false,          -- Movement and positioning (usually disable)
             interaction = false,       -- Player interactions
             
@@ -188,18 +188,23 @@ local SharedConfigHelpers = {
     end,
 }
 
--- Initialize and display shared configuration
+-- Initialize and display shared configuration (minimized)
 local function displayConfigInfo()
-    print("🤝 Shared configuration loaded!")
-    
-    -- Get enabled debug categories for display
-    local enabledCategories = {}
-    for category, enabled in pairs(SharedConfig.Debug.categories) do
-        if enabled then
-            table.insert(enabledCategories, category)
+    -- Only show config loading in verbose mode
+    if SharedConfig.Debug.categories.config then
+        print("🤝 Shared configuration loaded!")
+        
+        -- Get enabled debug categories for display
+        local enabledCategories = {}
+        for category, enabled in pairs(SharedConfig.Debug.categories) do
+            if enabled then
+                table.insert(enabledCategories, category)
+            end
+        end
+        if #enabledCategories > 0 then
+            print("🔧 Debug categories enabled:", table.concat(enabledCategories, ", "))
         end
     end
-    print("🔧 Debug categories enabled:", table.concat(enabledCategories, ", "))
 end
 
 -- Display config info on load

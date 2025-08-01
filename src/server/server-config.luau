@@ -56,7 +56,7 @@ local ServerConfigHelpers = {
     end,
 }
 
-print("🛡️ Server configuration loaded (server-authoritative)")
+-- Removed verbose server config loading message
 
 -- Export server configuration (only accessible to server)
 return {

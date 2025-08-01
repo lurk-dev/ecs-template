@@ -50,13 +50,13 @@ function ServerNetwork.init()
         ServerNetwork.handleRequest(player, request)
     end)
     
-    Debug.system("Server network system initialized")
+    -- Debug.system("Server network system initialized") -- Commented out to reduce noise
 end
 
 -- Register global middleware (runs for all requests)
 function ServerNetwork.use(middleware: Middleware)
     table.insert(globalMiddleware, middleware)
-    Debug.system(`Registered global middleware: ${tostring(middleware)}`)
+    -- Removed verbose middleware registration logging
 end
 
 -- Register action-specific middleware
@@ -65,7 +65,7 @@ function ServerNetwork.useForAction(action: string, middleware: Middleware)
         actionMiddleware[action] = {}
     end
     table.insert(actionMiddleware[action], middleware)
-    Debug.system(`Registered middleware for action '${action}': ${tostring(middleware)}`)
+    -- Removed verbose action middleware registration logging
 end
 
 -- Register network action handler
@@ -75,7 +75,7 @@ function ServerNetwork.handle(action: string, handler: NetworkHandler)
     end
     
     handlers[action] = handler
-    Debug.system(`Registered handler for action: ${action}`)
+    -- Removed verbose handler registration logging
 end
 
 -- Built-in security middleware
@@ -244,6 +244,6 @@ end
 -- Add default security middleware
 ServerNetwork.use(ServerNetwork.createSecurityMiddleware())
 
-Debug.config("Server network module loaded")
+-- Removed verbose module loading message
 
 return ServerNetwork

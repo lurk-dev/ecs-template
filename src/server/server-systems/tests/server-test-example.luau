@@ -15,7 +15,7 @@ local function serverTestSystem()
     if systemInitialized then return end
     systemInitialized = true
     
-    Debug.system("🧪 Server Test System initialized (Studio only)")
+    -- Debug.system("🧪 Server Test System initialized (Studio only)") -- Commented out to reduce noise
     
     -- Example test functionality
     task.spawn(function()

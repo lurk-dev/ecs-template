@@ -16,7 +16,7 @@ local function clientTestSystem()
     if systemInitialized then return end
     systemInitialized = true
     
-    Debug.system("🧪 Client Test System initialized (Studio only)")
+    -- Debug.system("🧪 Client Test System initialized (Studio only)") -- Commented out to reduce noise
     
     -- Example: Bind a test key
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
@@ -27,7 +27,7 @@ local function clientTestSystem()
         end
     end)
     
-    Debug.config("🧪 Press F6 to trigger client test")
+    -- Debug.config("🧪 Press F6 to trigger client test") -- Commented out to reduce noise
 end
 
 return {

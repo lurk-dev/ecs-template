@@ -28,7 +28,7 @@ local function cleanupCharacter(playerEntity)
 end
 
 local function initCharacter(player, playerEntity, character)
-    Debug.system("Initializing character for player:", player.Name)
+    -- Debug.system("Initializing character for player:", player.Name) -- Commented out to reduce noise
     
     -- Defensive check for character validity
     if not character then
@@ -46,7 +46,7 @@ local function initCharacter(player, playerEntity, character)
 end
 
 local function initPlayer(player, playerEntityMap)
-    Debug.system("Initializing player:", player.Name)
+    -- Debug.system("Initializing player:", player.Name) -- Commented out to reduce noise
     
     local playerEntity = mk.mkEntity(world, "Player_" .. player.Name)
     

@@ -17,7 +17,7 @@ local function sharedTestSystem()
     systemInitialized = true
     
     local context = RunService:IsClient() and "CLIENT" or "SERVER"
-    Debug.system(`🧪 Shared Test System initialized on {context} (Studio only)`)
+    -- Debug.system(`🧪 Shared Test System initialized on {context} (Studio only)`) -- Commented out to reduce noise
     
     -- Example test functionality that works on both client and server
     task.spawn(function()
