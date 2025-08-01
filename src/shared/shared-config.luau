@@ -3,17 +3,11 @@
 -- Contains data that both client and server need access to
 -- NO SENSITIVE BALANCE DATA - only display info and coordination constants
 
-
-
 -- SHARED CONFIGURATION
 -- Safe for both client and server access
 local SharedConfig = {
     -- Basic Game Limits (coordination between client/server)
-    Limits = {
-        maxInventorySlots = 20,         -- UI needs to know for display
-        maxStackSize = 99,              -- UI needs to show stack limits
-        interactionRange = 10,          -- Client needs for interaction detection
-    },
+    Limits = {},
     
     -- Network Configuration (coordination between client/server)
     Network = {
@@ -101,19 +95,6 @@ local SharedConfigHelpers = {
     getDisplayName = function(itemType: string)
         -- Generic display name helper - can be extended based on project needs
         return itemType or "Unknown"
-    end,
-    
-    -- Limit helpers
-    getMaxInventorySlots = function()
-        return SharedConfig.Limits.maxInventorySlots
-    end,
-    
-    getInteractionRange = function()
-        return SharedConfig.Limits.interactionRange
-    end,
-    
-    getMaxStackSize = function()
-        return SharedConfig.Limits.maxStackSize
     end,
     
     -- Message helpers
@@ -206,8 +187,6 @@ local SharedConfigHelpers = {
 -- Initialize and display shared configuration
 local function displayConfigInfo()
     print("🤝 Shared configuration loaded!")
-    print("📦 Max inventory slots:", SharedConfig.Limits.maxInventorySlots)
-    print("📡 Remote events:", #SharedConfig.Network.actions)
     
     -- Get enabled debug categories for display
     local enabledCategories = {}

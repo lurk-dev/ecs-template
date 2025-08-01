@@ -1,4 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 
 local startup = require(ReplicatedStorage.Shared.startup)
 
@@ -14,7 +15,21 @@ local function addSystems(folder)
     end
 end
 
+local function addTestSystems(folder)
+    local testsFolder = folder:FindFirstChild("tests")
+    if testsFolder then
+        addSystems(testsFolder)
+    end
+end
+
+-- Load production systems
 addSystems(ReplicatedStorage.Shared["client-systems"])
 addSystems(ReplicatedStorage.Shared["shared-systems"])
+
+-- Load test systems only in Studio
+if RunService:IsStudio() then
+    addTestSystems(ReplicatedStorage.Shared["client-systems"])
+    addTestSystems(ReplicatedStorage.Shared["shared-systems"])
+end
 
 startup(systems)
