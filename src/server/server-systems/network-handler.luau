@@ -148,18 +148,11 @@ local function networkHandlerSystem()
             }
             
             ServerNetwork.broadcast("serverStats", serverStats)
-            Debug.network("Broadcasted server stats")
         end
         
-        -- Send frequent broadcasts for the first 15 seconds (for testing)
-        for i = 1, 5 do
-            task.wait(3) -- Every 3 seconds for first 15 seconds
-            broadcastStats()
-        end
-        
-        -- Then continue with regular interval
+        -- Send stats every 60 seconds
         while true do
-            task.wait(30) -- Every 30 seconds
+            task.wait(60)
             broadcastStats()
         end
     end)

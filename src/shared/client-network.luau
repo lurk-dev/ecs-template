@@ -156,21 +156,20 @@ end
 
 -- Handle response from server
 function ClientNetwork.handleResponse(response: any)
+
     if not Network.validateRequest({action="", timestamp=0, requestId=""}) then
         -- Use simpler validation for responses
         if type(response) ~= "table" or not response.requestId then
-            Debug.network("Invalid response format")
+            Debug.network("Invalid response format, aborting.")
             return
         end
     end
-    
+
     local requestId = response.requestId
-    
-    -- Check if this is a response to a pending request
     local pendingRequest = pendingRequests[requestId]
+
     if pendingRequest then
         pendingRequests[requestId] = nil
-        
         if response.success then
             pendingRequest.resolve(response)
             Debug.network(`Received success response: ${requestId}`)
@@ -180,25 +179,19 @@ function ClientNetwork.handleResponse(response: any)
         end
         return
     end
-    
-    -- Check if this is a server-initiated message
-    if response.success and response.data and type(response.data) == "table" then
-        local messageData = response.data
-        if messageData.action then
-            local handler = responseHandlers[messageData.action]
-            if handler then
-                local success, error = pcall(function()
-                    handler(messageData.data)
-                end)
-                if not success then
-                    Debug.error(`Error in response handler for ${messageData.action}: ${error}`)
-                end
-                return
+
+    -- Check for server broadcast messages
+    if response.data and response.data.action then
+        local handler = responseHandlers[response.data.action]
+        if handler then
+            local success, err = pcall(function()
+                handler(response.data.data)
+            end)
+            if not success then
+                Debug.error(`Error in broadcast handler for ${response.data.action}: ${err}`)
             end
         end
     end
-    
-    Debug.network(`Unhandled response: ${requestId}`)
 end
 
 -- Built-in client middleware: Request throttling
